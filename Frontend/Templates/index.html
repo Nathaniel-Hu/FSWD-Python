@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
 </head>
 <body>
-$END$
+    <h1>Home Page</h1>
+    <p>Welcome to the Home Page, {{content}}!</p>
+    {% for x in range(10) %}
+        {% if x % 2 == 1 %}
+            <p>{{x}}</p>
+        {% else %}
+            <p>Hello!</p>
+        {% endif %}
+    {% endfor %}
+
+    {% for x in content2 %}
+        <p>{{x}}</p>
+    {% endfor %}
 </body>
 </html>
