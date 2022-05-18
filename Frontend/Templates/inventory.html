@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block header %}Backend Development{% endblock %}
+
+{% block home %}<li class="nav-item">{% endblock %}
+{% block frontend_dev %}<li class="nav-item">{% endblock %}
+{% block backend_dev %}<li class="nav-item dropdown active">{% endblock %}
+{% block about_me %}<li class="nav-item">{% endblock %}
+
+{% block title %}Inventory Tracking Web Application{% endblock %}
+{% block content %}
+<div>
+<h3>Welcome to the Inventory Tracking Web Application for a Logistics Company!</h3>
+<p>This web application allows you to create, edit, delete and view a list of inventory items. You also have the ability
+to create "shipments" and assignment inventory to them, with appropriate adjustments made to the inventory.</p>
+</div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div>
+    <h3>Add Item to Inventory</h3>
+    <form action="#" method="post">
+        <p>Item ID#: <input type="text" name="id_num" /></p>
+        <p>Item Name: <input type="text" name="name" /></p>
+        <p>Item Quantity: <input type="number" name="quantity" /></p>
+        <p>Item Buy Price: <input type="number" name="buy_price" /></p>
+        <p>Item Sell Price: <input type="number" name="sell_price" /></p>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+</div>
+
+<div>
+    <h3>Current Available Inventory</h3>
+    {% for id_num in inventory %}
+        <p>{{inventory[id_num]}}</p>
+    {% endfor %}
+</div>
+{% endblock %}
