@@ -6,7 +6,7 @@ class Item:
         self.buy_price = buy_price
         self.sell_price = sell_price
 
-    def get_id_num(self) -> int:
+    def get_id_num(self) -> str:
         return self.id_num
 
     def get_name(self) -> str:
@@ -30,8 +30,26 @@ class Item:
     def set_quantity(self, quantity):
         self.quantity = quantity
 
+    def increment_quantity(self, quantity):
+        self.quantity += quantity
+
+    def decrement_quantity(self, quantity) -> bool:
+        if self.quantity >= quantity:
+            self.quantity -= quantity
+            return True
+        else:
+            return False
+
     def set_buy_price(self, buy_price):
         self.buy_price = buy_price
 
     def set_sell_price(self, sell_price):
         self.sell_price = sell_price
+
+    def __str__(self):
+        return f"ID#: {self.id_num} | Name: {self.name} | Available Quantity: {self.quantity} | " \
+               f"Buy Price: {self.buy_price:.2f} | Sell Price {self.sell_price:.2f}"
+
+    def __eq__(self, obj):
+        return isinstance(obj, Item) and (self.id_num == obj.id_num and self.name == obj.name and
+                                          self.buy_price == obj.buy_price and self.sell_price == obj.sell_price)
