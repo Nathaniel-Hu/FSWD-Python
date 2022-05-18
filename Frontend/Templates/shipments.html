@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block header %}Backend Development{% endblock %}
+
+{% block home %}<li class="nav-item">{% endblock %}
+{% block frontend_dev %}<li class="nav-item">{% endblock %}
+{% block backend_dev %}<li class="nav-item dropdown active">{% endblock %}
+{% block about_me %}<li class="nav-item">{% endblock %}
+
+{% block title %}Inventory Tracking Web Application{% endblock %}
+{% block content %}
+<div>
+<h3>Welcome to the Inventory Tracking Web Application for a Logistics Company!</h3>
+<p>This web application allows you to create, edit, delete and view a list of inventory items. You also have the ability
+to create "shipments" and assignment inventory to them, with appropriate adjustments made to the inventory.</p>
+</div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div>
+    <h3>Create Shipment</h3>
+    <form action="#" method="POST">
+        <p>Shipment ID#: <input type="text" name="id_num" /></p>
+        <p>Deliveree Name: <input type="text" name="name" /></p>
+        <p>Deliveree Address:</p>
+        <p>Street Address: <input type="text" name="street_address" /></p>
+        <p>Town/City: <input type="text" name="town_city" /></p>
+        <p>Province/State: <input type="text" name="province_state" /></p>
+        <p>Country: <input type="text" name="country" /></p>
+        <p>Postal/Zip Code: <input type="text" name="postal_zip_code" /></p>
+        <p><input type="submit" name="submit" value="Create Shipment"></p>
+    </form>
+</div>
+
+<div>
+    <h3>Add Items to Shipments</h3>
+    <form action="#" method="POST">
+        <p>Shipment ID#: <input type="text" name="sid_num" /></p>
+        <p>Item ID#: <input type="text" name="iid_num" /></p>
+        <p>Item Quantity: <input type="number" name="quantity"></p>
+        <p><input type="submit" name="submit" value="Add Item to Shipment"></p>
+    </form>
+</div>
+
+<div>
+    <h3>Current Shipments</h3>
+    {% for id_num in shipments %}
+        <p>{{shipments[id_num]}}</p>
+        {% for item in shipments[id_num].get_items_display() %}
+            <p>{{item}}</p>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
