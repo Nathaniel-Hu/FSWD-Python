@@ -1,22 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-</head>
-<body>
-    <h1>Home Page</h1>
-    <p>Welcome to the Home Page, {{content}}!</p>
-    {% for x in range(10) %}
-        {% if x % 2 == 1 %}
-            <p>{{x}}</p>
-        {% else %}
-            <p>Hello!</p>
-        {% endif %}
-    {% endfor %}
+{% extends "base.html" %}
+{% block header %}Home Page{% endblock %}
 
-    {% for x in content2 %}
-        <p>{{x}}</p>
-    {% endfor %}
-</body>
-</html>
+{% block home %}<li class="nav-item active">{% endblock %}
+{% block frontend_dev %}<li class="nav-item">{% endblock %}
+{% block backend_dev %}<li class="nav-item dropdown">{% endblock %}
+{% block about_me %}<li class="nav-item">{% endblock %}
+
+{% block title %}Full Stack Web Development (FSWD) - Python{% endblock %}
+{% block content %}
+<div>
+<h3>Welcome to the Home Page for the FSWD - Python Website!</h3>
+<p>This website features both frontend and backend oriented web development samples. The website frontend is implemented
+    using HTML, CSS, the CSS Bootstrap framework and JavaScript. The website backend is implemented using the Python
+    Flask framework. Click on one of the following buttons below to view the web development samples.</p>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block" disabled>Frontend Development</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block" onclick="window.location.href='/inventory';">Backend Development</button>
+</div>
+{% endblock %}
