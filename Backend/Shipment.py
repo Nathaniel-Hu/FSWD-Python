@@ -1,12 +1,12 @@
 class Shipment:
-    def __init__(self, id_num, deliveree, address, item_id_nums=None):
+    def __init__(self, id_num, deliveree, address, items_info=None):
         self.id_num = id_num
         self.deliveree = deliveree
         self.address = address
         self.items = {}
 
-        if item_id_nums:
-            self.add_items(item_id_nums)
+        if items_info:
+            self.add_items(items_info)
 
     def add_item(self, item_id_num, item_quantity):
         if item_id_num in self.items:
@@ -14,10 +14,10 @@ class Shipment:
         else:
             self.items[item_id_num] = item_quantity
 
-    def add_items(self, items):
-        for item in items:
-            # item = (item_id_num, item_quantity)
-            self.add_item(item[0], item[1])
+    def add_items(self, items_info):
+        for item_info in items_info:
+            # item_info = (item_id_num, item_quantity)
+            self.add_item(item_info[0], item_info[1])
 
     def del_item(self, item_id_num):
         del self.items[item_id_num]
