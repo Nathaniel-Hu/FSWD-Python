@@ -26,19 +26,19 @@ to create "shipments" and assignment inventory to them, with appropriate adjustm
     <h3>Add Item to Inventory</h3>
     <form action="#" method="post">
     {% if info %}
-        <p>Item ID#: <input type="text" name="id_num" value={{info['id_num']}} /></p>
-        <p>Item Name: <input type="text" name="name" value={{info['name']}} /></p>
-        <p>Item Quantity: <input type="number" name="quantity" value={{info['quantity']}} /></p>
-        <p>Item Buy Price: <input type="number" name="buy_price" value={{info['buy_price']}} /></p>
-        <p>Item Sell Price: <input type="number" name="sell_price" value={{info['sell_price']}} /></p>
-        <p><input type="submit" value="Submit"></p>
+        <p>Item ID#: <input type="text" name="id_num" value="{{info['id_num']}}" /></p>
+        <p>Item Name: <input type="text" name="name" value="{{info['name']}}" /></p>
+        <p>Item Quantity: <input type="number" name="quantity" value="{{info['quantity']}}" /></p>
+        <p>Item Buy Price: <input type="number" name="buy_price" value="{{info['buy_price']}}" /></p>
+        <p>Item Sell Price: <input type="number" name="sell_price" value="{{info['sell_price']}}" /></p>
+        <p><input type="submit" value="Add Item to Inventory"></p>
     {% else %}
         <p>Item ID#: <input type="text" name="id_num" /></p>
         <p>Item Name: <input type="text" name="name" /></p>
         <p>Item Quantity: <input type="number" name="quantity" /></p>
         <p>Item Buy Price: <input type="number" name="buy_price" /></p>
         <p>Item Sell Price: <input type="number" name="sell_price" /></p>
-        <p><input type="submit" value="Submit"></p>
+        <p><input type="submit" value="Add Item to Inventory"></p>
     {% endif %}
     </form>
 </div>
