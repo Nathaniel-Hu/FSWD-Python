@@ -25,19 +25,28 @@ to create "shipments" and assignment inventory to them, with appropriate adjustm
 <div>
     <h3>Add Item to Inventory</h3>
     <form action="#" method="post">
+    {% if info %}
+        <p>Item ID#: <input type="text" name="id_num" value={{info['id_num']}} /></p>
+        <p>Item Name: <input type="text" name="name" value={{info['name']}} /></p>
+        <p>Item Quantity: <input type="number" name="quantity" value={{info['quantity']}} /></p>
+        <p>Item Buy Price: <input type="number" name="buy_price" value={{info['buy_price']}} /></p>
+        <p>Item Sell Price: <input type="number" name="sell_price" value={{info['sell_price']}} /></p>
+        <p><input type="submit" value="Submit"></p>
+    {% else %}
         <p>Item ID#: <input type="text" name="id_num" /></p>
         <p>Item Name: <input type="text" name="name" /></p>
         <p>Item Quantity: <input type="number" name="quantity" /></p>
         <p>Item Buy Price: <input type="number" name="buy_price" /></p>
         <p>Item Sell Price: <input type="number" name="sell_price" /></p>
         <p><input type="submit" value="Submit"></p>
+    {% endif %}
     </form>
 </div>
 
 <div>
     <h3>Current Available Inventory</h3>
-    {% for id_num in inventory %}
-        <p>{{inventory[id_num]}}</p>
+    {% for item in inventory %}
+        <p>{{item}}</p>
     {% endfor %}
 </div>
 {% endblock %}
