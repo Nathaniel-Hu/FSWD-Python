@@ -1,3 +1,11 @@
+# ======================================================================
+# Item Class
+# ----------------------------------------------------------------------
+# This class provides the attributes and methods to manage items in the
+# inventory backend. However, it will not be used in the Python Flask
+# web application (hosted on repl.it with db being used), as these item
+# objects cannot be stored (in repl.it db).
+# ======================================================================
 class Item:
     def __init__(self, id_num, name, quantity, buy_price, sell_price):
         self.id_num = id_num
@@ -47,9 +55,15 @@ class Item:
         self.sell_price = sell_price
 
     def __str__(self):
-        return f"ID#: {self.id_num} | Name: {self.name} | Available Quantity: {self.quantity} | " \
-               f"Buy Price: {self.buy_price:.2f} | Sell Price {self.sell_price:.2f}"
+        return f"ID#: {self.id_num} | " \
+               f"Name: {self.name} | " \
+               f"Available Quantity: {self.quantity} | " \
+               f"Buy Price: {self.buy_price:.2f} | " \
+               f"Sell Price {self.sell_price:.2f}"
 
     def __eq__(self, obj):
-        return isinstance(obj, Item) and (self.id_num == obj.id_num and self.name == obj.name and
-                                          self.buy_price == obj.buy_price and self.sell_price == obj.sell_price)
+        return isinstance(obj, Item) and (self.id_num == obj.id_num
+                                          and self.name == obj.name
+                                          and self.buy_price == obj.buy_price
+                                          and self.sell_price == obj.sell_price
+                                          )
