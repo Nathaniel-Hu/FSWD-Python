@@ -1,3 +1,11 @@
+# ======================================================================
+# Shipment Class
+# ----------------------------------------------------------------------
+# This class provides the attributes and methods to manage shipments in
+# the backend. However, it will not be used in the Python Flask web
+# application (hosted on repl.it with db being used), as these shipment
+# objects cannot be stored (in repl.it db).
+# ======================================================================
 class Shipment:
     def __init__(self, id_num, deliveree, address, items_info=None):
         self.id_num = id_num
@@ -42,7 +50,9 @@ class Shipment:
         return self.items
 
     def get_items_display(self):
-        return [f"Item ID#: {item_id_num} | Item Quantity: {self.items[item_id_num]}" for item_id_num in self.items]
+        return [f"Item ID#: {item_id_num} | "
+                f"Item Quantity: {self.items[item_id_num]}"
+                for item_id_num in self.items]
 
     def get_item_quantity(self, item_id_num) -> int:
         return self.items[item_id_num]
@@ -60,10 +70,18 @@ class Shipment:
         self.items[item_id_num] = item_quantity
 
     def __str__(self):
-        return f"Shipment ID#: {self.id_num}\nDeliveree: {self.deliveree}\n" \
-               f"Address:\n{self.address['street_address']}\n{self.address['town_city']}, " \
-               f"{self.address['province_state']}, {self.address['country']}\n{self.address['postal_zip_code']}\n"
+        return f"Shipment ID#: {self.id_num}\n" \
+               f"Deliveree: {self.deliveree}\n" \
+               f"Address:\n" \
+               f"{self.address['street_address']}\n" \
+               f"{self.address['town_city']}, " \
+               f"{self.address['province_state']}, " \
+               f"{self.address['country']}\n" \
+               f"{self.address['postal_zip_code']}\n"
 
     def __eq__(self, obj):
-        return isinstance(obj, Shipment) and (self.id_num == obj.id_num and self.deliveree == obj.deliveree and
-                                              self.address == obj.address)
+        return isinstance(obj, Shipment) \
+               and (self.id_num == obj.id_num
+                    and self.deliveree == obj.deliveree
+                    and self.address == obj.address
+                    )
