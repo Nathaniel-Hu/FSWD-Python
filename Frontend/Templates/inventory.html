@@ -11,7 +11,8 @@
 <div>
 <h3>Welcome to the Inventory Tracking Web Application for a Logistics Company!</h3>
 <p>This web application allows you to create, edit, delete and view a list of inventory items. You also have the ability
-to create "shipments" and assignment inventory to them, with appropriate adjustments made to the inventory.</p>
+    to create "shipments" and assignment inventory to them on the "Shipment Management" page, with the appropriate
+    adjustments being made to the inventory automatically as items are assigned to shipments.</p>
 </div>
 
 {% with messages = get_flashed_messages() %}
@@ -24,29 +25,70 @@ to create "shipments" and assignment inventory to them, with appropriate adjustm
 
 <div>
     <h3>Add Item to Inventory</h3>
+    <p>Use the following form below to add items to the inventory. Items added here can be assigned to shipments on the
+        "Shipment Management" page.</p>
     <form action="#" method="post">
-    {% if info %}
+    {% if a_flag and info %}
         <p>Item ID#: <input type="text" name="id_num" value="{{info['id_num']}}" /></p>
         <p>Item Name: <input type="text" name="name" value="{{info['name']}}" /></p>
-        <p>Item Quantity: <input type="number" name="quantity" value="{{info['quantity']}}" /></p>
-        <p>Item Buy Price: <input type="number" name="buy_price" value="{{info['buy_price']}}" /></p>
-        <p>Item Sell Price: <input type="number" name="sell_price" value="{{info['sell_price']}}" /></p>
-        <p><input type="submit" value="Add Item to Inventory"></p>
+        <p>Item Quantity: <input type="number" min="0" name="quantity" value="{{info['quantity']}}" /></p>
+        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" value="{{info['buy_price']}}" /></p>
+        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" value="{{info['sell_price']}}" /></p>
     {% else %}
         <p>Item ID#: <input type="text" name="id_num" /></p>
         <p>Item Name: <input type="text" name="name" /></p>
-        <p>Item Quantity: <input type="number" name="quantity" /></p>
-        <p>Item Buy Price: <input type="number" name="buy_price" /></p>
-        <p>Item Sell Price: <input type="number" name="sell_price" /></p>
-        <p><input type="submit" value="Add Item to Inventory"></p>
+        <p>Item Quantity: <input type="number" min="0" name="quantity" /></p>
+        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" /></p>
+        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" /></p>
     {% endif %}
+        <p><input type="submit" name="submit" value="Add Item to Inventory"></p>
     </form>
 </div>
 
 <div>
     <h3>Current Available Inventory</h3>
+    <p>The following list below shows all the currently available items in the inventory. Items shown here can be
+        assigned to shipments on the "Shipment Management" page. This list will be updated as items are assigned to
+        shipments.</p>
     {% for item in inventory %}
         <p>{{item}}</p>
     {% endfor %}
+</div>
+
+<div>
+    <h3>Edit Item in Inventory</h3>
+    <p>Use the following form below to edit existing items in the inventory.</p>
+    <form action="#" method="post">
+    {% if e_flag and info %}
+        <p>Old Item ID#: <input type="text" name="old_id_num" value="{{info['old_id_num']}}" /></p>
+        <p>Item ID#: <input type="text" name="id_num" value="{{info['id_num']}}" /></p>
+        <p>Item Name: <input type="text" name="name" value="{{info['name']}}" /></p>
+        <p>Item Quantity: <input type="number" min="0" name="quantity" value="{{info['quantity']}}" /></p>
+        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" value="{{info['buy_price']}}" /></p>
+        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" value="{{info['sell_price']}}" /></p>
+    {% else %}
+        <p>Old Item ID#: <input type="text" name="old_id_num" /></p>
+        <p>Item ID#: <input type="text" name="id_num" /></p>
+        <p>Item Name: <input type="text" name="name" /></p>
+        <p>Item Quantity: <input type="number" min="0" name="quantity" /></p>
+        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" /></p>
+        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" /></p>
+    {% endif %}
+        <p><input type="submit" name="submit" value="Edit Item in Inventory"></p>
+    </form>
+</div>
+
+<div>
+    <h3>Delete Item from Inventory</h3>
+    <p>Use the following form below to delete items from the inventory. Items deleted here will also be deleted from any
+        shipments they are assigned to on the "Shipment Management" page.</p>
+    <form action="#" method="post">
+    {% if d_flag and info %}
+        <p>Item ID#: <label><input type="text" name="id_num" value="{{info['id_num']}}"></label></p>
+    {% else %}
+        <p>Item ID#: <label><input type="text" name="id_num"></label></p>
+    {% endif %}
+        <p><input type="submit" name="submit" value="Delete Item from Inventory"></p>
+    </form>
 </div>
 {% endblock %}
