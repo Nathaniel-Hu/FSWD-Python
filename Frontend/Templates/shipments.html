@@ -50,7 +50,7 @@ to create "shipments" and assignment inventory to them, with appropriate adjustm
 </div>
 
 <div>
-    <h3>Add Items to Shipments</h3>
+    <h3>Add Item to Shipment</h3>
     <form action="#" method="POST">
     {% if not si_flag and info %}
         <p>Shipment ID#: <input type="text" name="sid_num" value="{{info['sid_num']}}" /></p>
@@ -68,8 +68,11 @@ to create "shipments" and assignment inventory to them, with appropriate adjustm
 
 <div>
     <h3>Current Shipments</h3>
-    {% for id_num in shipments %}
-        <p>ID#: {{id_num}} | Info: {{shipments[id_num]}}</p>
+    {% for sid_num in shipments %}
+        <p>{{shipments[sid_num]["shipment_info"]}}</p>
+        {% for item_info in shipments[sid_num]["shipment_items"] %}
+            <p>{{item_info}}</p>
+        {% endfor %}
     {% endfor %}
 </div>
 {% endblock %}
