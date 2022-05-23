@@ -10,6 +10,9 @@ The following instructions are for using the inventory tracking web
 application for a logistics company for the Fall 2022 - Shopify Developer
 Intern Challenge. Start from the repl.it repository hosting this web
 application [here](https://replit.com/@NathanielHu4/FSWD-Python-Shopify-BDIC).
+Ensure that you are running the latest version of the web application code on
+the `main` branch.
+
 1. From the Shell command line window, enter the following command:
 `python3 main.py`, or press the Run button at the top to run the `main.sh`
 script and start the web application.
