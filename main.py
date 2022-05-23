@@ -30,58 +30,60 @@ def inventory():
             id_num, name, quantity, buy_price, sell_price = get_add_item_info(
                 request.form)
             item = create_item(name, quantity, buy_price, sell_price)
-            match add_item(id_num, item):
-                case (True, True):
-                    flash("Item already exists in the inventory, and its "
-                          "quantity has been incremented successfully!")
-                case (False, False):
-                    flash("Unable to add item to inventory! Please check that "
-                          "the item ID# is not already being used by another "
-                          "item in the inventory.")
-                    return render_template("inventory.html",
-                                           inventory=string_items(),
-                                           a_flag=True, info=request.form)
-                case (True, False):
-                    flash("Item added to inventory successfully!")
+
+            result = add_item(id_num, item)
+            if result == (True, True):
+                flash("Item already exists in the inventory, and its quantity "
+                      "has been incremented successfully!")
+            elif result == (False, False):
+                flash("Unable to add item to inventory! Please check that the "
+                      "item ID# is not already being used by another item in "
+                      "the inventory.")
+                return render_template("inventory.html",
+                                       inventory=string_items(),
+                                       a_flag=True, info=request.form)
+            elif result == (True, False):
+                flash("Item added to inventory successfully!")
         # "Edit Item in Inventory" submit button was pressed
         elif submit_pressed(request.form) == "Edit Item in Inventory":
             old_id_num, id_num, name, quantity, buy_price, sell_price = \
                 get_edit_item_info(request.form)
-            match edit_item(old_id_num, id_num, name, quantity, buy_price,
-                            sell_price):
-                case (True, True):
-                    flash("Changes for the item hve been made successfully!")
-                case (False, True):
-                    flash("No (valid) changes for item detected! Please check "
-                          " that you have (valid) item changes entered, and "
-                          "that the (new) item ID# is not already used in the "
-                          "inventory.")
-                    return render_template("inventory.html",
-                                           inventory=string_items(),
-                                           e_flag=True, info=request.form)
-                case (False, False):
-                    flash("Item does not exist in the inventory! Please check "
-                          "that the old item ID# is used in the inventory.")
-                    return render_template("inventory.html",
-                                           inventory=string_items(),
-                                           e_flag=True, info=request.form)
+
+            result = edit_item(old_id_num, id_num, name, quantity, buy_price,
+                            sell_price)
+            if result == (True, True):
+                flash("Changes for the item hve been made successfully!")
+            elif result == (False, True):
+                flash("No (valid) changes for item detected! Please check that"
+                      " you have (valid) item changes entered, and that the "
+                      "(new) item ID# is not already used in the inventory.")
+                return render_template("inventory.html",
+                                       inventory=string_items(),
+                                       e_flag=True, info=request.form)
+            elif result == (False, False):
+                flash("Item does not exist in the inventory! Please check "
+                      "that the old item ID# is used in the inventory.")
+                return render_template("inventory.html",
+                                       inventory=string_items(),
+                                       e_flag=True, info=request.form)
         # "Delete Item from Inventory" submit button was pressed (assumed)
         else:
             id_num = get_delete_item_info(request.form)
-            match delete_item(id_num):
-                case (True, True):
-                    flash("Item deleted from the inventory successfully! Item "
-                          "also deleted from all assigned shipments "
-                          "successfully!")
-                case (True, False):
-                    flash("Item deleted from the inventory successfully!")
-                case (False, False):
-                    flash("Item deletion from the inventory unsuccessful! "
-                          "Please check that the item ID# is being used by an "
-                          "existing item in the inventory.")
-                    return render_template("inventory.html",
-                                           inventory=string_items(),
-                                           d_flag=True, info=request.form)
+
+            result = delete_item(id_num)
+            if result == (True, True):
+                flash("Item deleted from the inventory successfully! Item "
+                      "also deleted from all assigned shipments "
+                      "successfully!")
+            elif result == (True, False):
+                flash("Item deleted from the inventory successfully!")
+            elif result == (False, False):
+                flash("Item deletion from the inventory unsuccessful! "
+                      "Please check that the item ID# is being used by an "
+                      "existing item in the inventory.")
+                return render_template("inventory.html",
+                                       inventory=string_items(),
+                                       d_flag=True, info=request.form)
     return render_template("inventory.html", inventory=string_items())
 
 
@@ -92,56 +94,56 @@ def shipments():
         if submit_pressed(request.form) == "Create Shipment":
             id_num, name, address = get_create_shipment_info(request.form)
             item_shipment = create_shipment(name, address)
-            match add_shipment(id_num, item_shipment):
-                case (False, True):
-                    flash("Shipment already exists! Please add more items to "
-                          "the existing shipment using the same shipment ID# "
-                          "or use a different shipment ID#.")
-                    return render_template("shipments.html",
-                                           inventory=string_items(),
-                                           shipments=string_shipments(),
-                                           si_flag=True, info=request.form)
-                case (False, False):
-                    flash("Shipment with that ID# already exists! Please "
-                          "check that the shipment ID# is not already being "
-                          "used by another existing shipment.")
-                    return render_template("shipments.html",
-                                           inventory=string_items(),
-                                           shipments=string_shipments(),
-                                           si_flag=True, info=request.form)
-                case (True, False):
-                    flash("Shipment created successfully!")
+
+            result = add_shipment(id_num, item_shipment)
+            if result == (False, True):
+                flash("Shipment already exists! Please add more items to the "
+                      "existing shipment using the same shipment ID# or use a "
+                      "different shipment ID#.")
+                return render_template("shipments.html",
+                                       inventory=string_items(),
+                                       shipments=string_shipments(),
+                                       si_flag=True, info=request.form)
+            elif result == (False, False):
+                flash("Shipment with that ID# already exists! Please check "
+                      "that the shipment ID# is not already being used by "
+                      "another existing shipment.")
+                return render_template("shipments.html",
+                                       inventory=string_items(),
+                                       shipments=string_shipments(),
+                                       si_flag=True, info=request.form)
+            elif result == (True, False):
+                flash("Shipment created successfully!")
         # "Add Item to Shipment" submit button was pressed
         elif submit_pressed(request.form) == "Add Item to Shipment":
             sid_num, iid_num, quantity = get_add_to_shipment_info(request.form)
-            match add_to_shipment(sid_num, iid_num, quantity):
-                case (False, True):
-                    flash("The shipment with the given ID# currently does not "
-                          "exist. Please check that you are using the correct "
-                          "shipment ID#.")
-                    return render_template("shipments.html",
-                                           inventory=string_items(),
-                                           shipments=string_shipments(),
-                                           si_flag=False, info=request.form)
-                case (True, False):
-                    flash("The item(s) with the given ID# currently does not "
-                          "exist in the inventory. Please check that you are "
-                          "using the correct item ID#.")
-                    return render_template("shipments.html",
-                                           inventory=string_items(),
-                                           shipments=string_shipments(),
-                                           si_flag=False, info=request.form)
-                case (True, True):
-                    flash("Inventory item(s) successfully assigned to "
-                          "shipment!")
-                case (False, False):
-                    flash("Inventory item(s) assignment to shipment "
-                          "unsuccessful! Please check your inventory item "
-                          "levels and try again.")
-                    return render_template("shipments.html",
-                                           inventory=string_items(),
-                                           shipments=string_shipments(),
-                                           si_flag=False, info=request.form)
+
+            result = add_to_shipment(sid_num, iid_num, quantity)
+            if result == (False, True):
+                flash("The shipment with the given ID# currently does not "
+                      "exist. Please check that you are using the correct "
+                      "shipment ID#.")
+                return render_template("shipments.html",
+                                       inventory=string_items(),
+                                       shipments=string_shipments(),
+                                       si_flag=False, info=request.form)
+            elif result == (True, False):
+                flash("The item(s) with the given ID# currently does not "
+                      "exist in the inventory. Please check that you are "
+                      "using the correct item ID#.")
+                return render_template("shipments.html",
+                                       inventory=string_items(),
+                                       shipments=string_shipments(),
+                                       si_flag=False, info=request.form)
+            elif result == (True, True):
+                flash("Inventory item(s) successfully assigned to shipment!")
+            elif result == (False, False):
+                flash("Inventory item(s) assignment to shipment unsuccessful! "
+                      "Please check your inventory item levels and try again.")
+                return render_template("shipments.html",
+                                       inventory=string_items(),
+                                       shipments=string_shipments(),
+                                       si_flag=False, info=request.form)
     return render_template("shipments.html", inventory=string_items(),
                            shipments=string_shipments())
 
