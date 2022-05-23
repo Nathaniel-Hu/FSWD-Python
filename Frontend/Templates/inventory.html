@@ -12,16 +12,20 @@
 <h3>Welcome to the Inventory Tracking Web Application for a Logistics Company!</h3>
 <p>This web application allows you to create, edit, delete and view a list of inventory items. You also have the ability
     to create "shipments" and assignment inventory to them on the "Shipment Management" page, with the appropriate
-    adjustments being made to the inventory automatically as items are assigned to shipments.</p>
+    adjustments being made to the inventory automatically as items are assigned to shipments. To access the "Shipment
+    Management" page, click on the "Go to Shipment Management" button shown below.</p>
+    <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='/shipments';">Go to Shipment Management</button>
 </div>
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for msg in messages %}
-            <p>{{msg}}</p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+<div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
 
 <div>
     <h3>Add Item to Inventory</h3>
