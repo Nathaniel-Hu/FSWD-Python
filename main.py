@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, flash
 import os
 # note: the next line is only needed for local use, and can be commented
 # out otherwise; this url will need to be updated periodically to work
-# os.environ["REPLIT_DB_URL"] = "https://kv.replit.com/v0/eyJhbGciOiJIUzUxMiIsImlzcyI6ImNvbm1hbiIsImtpZCI6InByb2Q6MSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb25tYW4iLCJleHAiOjE2NTMzMDE0OTgsImlhdCI6MTY1MzE4OTg5OCwiZGF0YWJhc2VfaWQiOiJlZmQyMjRjYi1iZWZmLTRkYjQtOGYxNy0yMmMyNjJmODgyZjkifQ.TaVTiNeH-QqfkHB-iUCw8ckmHUovCpK7nvQmLVfI25D7RZqDARt6ju12eS78cdzNlKE_JdGxS3ldLOsgsOIfGQ"
+os.environ["REPLIT_DB_URL"] = "https://kv.replit.com/v0/eyJhbGciOiJIUzUxMiIsImlzcyI6ImNvbm1hbiIsImtpZCI6InByb2Q6MSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb25tYW4iLCJleHAiOjE2NTMzMDE0OTgsImlhdCI6MTY1MzE4OTg5OCwiZGF0YWJhc2VfaWQiOiJlZmQyMjRjYi1iZWZmLTRkYjQtOGYxNy0yMmMyNjJmODgyZjkifQ.TaVTiNeH-QqfkHB-iUCw8ckmHUovCpK7nvQmLVfI25D7RZqDARt6ju12eS78cdzNlKE_JdGxS3ldLOsgsOIfGQ"
 from replit import db
 
 from Backend.ItemDB import get_add_item_info, create_item, add_item, \
-    string_item, string_items, item_id_unwrapper, get_edit_item_info, \
-    edit_item, get_delete_item_info, delete_item
+    string_items, get_edit_item_info, edit_item, get_delete_item_info, \
+    delete_item
 from Backend.ShipmentDB import get_create_shipment_info, create_shipment, \
     add_shipment, get_add_to_shipment_info, add_to_shipment, string_shipments
 from Backend.BackendManagement import submit_pressed
@@ -69,9 +69,13 @@ def inventory():
         else:
             id_num = get_delete_item_info(request.form)
             match delete_item(id_num):
-                case True:
+                case (True, True):
+                    flash("Item deleted from the inventory successfully! Item "
+                          "also deleted from all assigned shipments "
+                          "successfully!")
+                case (True, False):
                     flash("Item deleted from the inventory successfully!")
-                case False:
+                case (False, False):
                     flash("Item deletion from the inventory unsuccessful! "
                           "Please check that the item ID# is being used by an "
                           "existing item in the inventory.")
