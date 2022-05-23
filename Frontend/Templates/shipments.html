@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block header %}Backend Development{% endblock %}
+
+{% block home %}<li class="nav-item">{% endblock %}
+{% block frontend_dev %}<li class="nav-item">{% endblock %}
+{% block backend_dev %}<li class="nav-item dropdown active">{% endblock %}
+{% block about_me %}<li class="nav-item">{% endblock %}
+
+{% block title %}Inventory Tracking Web Application{% endblock %}
+{% block content %}
+<div>
+<h3>Welcome to the Inventory Tracking Web Application for a Logistics Company!</h3>
+<p>This web application allows you to create, edit, delete and view a list of inventory items. You also have the ability
+    to create "shipments" and assignment inventory to them, with appropriate adjustments made to the inventory. To
+    access the "Inventory Management" page, click on the "Go to Inventory Management" button shown below.</p>
+    <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='/inventory';">Go to Inventory Management</button></p>
+</div>
+
+<div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div>
+    <h3>Create Shipment</h3>
+    <p>Use the following form below to create shipments. Shipments created here can be assigned items from the
+        inventory.</p>
+    <form action="#" method="POST">
+    {% if si_flag and info %}
+        <p>Shipment ID#: <label><input type="text" name="id_num" value="{{info['id_num']}}"></label></p>
+        <p>Deliveree Name: <label><input type="text" name="name" value="{{info['name']}}"></label></p>
+        <p>Deliveree Address:</p>
+        <p>Street Address: <label><input type="text" name="street_address" value="{{info['street_address']}}"></label></p>
+        <p>Town/City: <label><input type="text" name="town_city" value="{{info['town_city']}}"></label></p>
+        <p>Province/State: <label><input type="text" name="province_state" value="{{info['province_state']}}"></label></p>
+        <p>Country: <label><input type="text" name="country" value={{info['country']}}></label></p>
+        <p>Postal/Zip Code: <label><input type="text" name="postal_zip_code" value="{{info['postal_zip_code']}}"></label></p>
+        <p><input type="submit" name="submit" value="Create Shipment"></p>
+    {% else %}
+        <p>Shipment ID#: <label><input type="text" name="id_num"></label></p>
+        <p>Deliveree Name: <label><input type="text" name="name"></label></p>
+        <p>Deliveree Address:</p>
+        <p>Street Address: <label><input type="text" name="street_address"></label></p>
+        <p>Town/City: <label><input type="text" name="town_city"></label></p>
+        <p>Province/State: <label><input type="text" name="province_state"></label></p>
+        <p>Country: <label><input type="text" name="country"></label></p>
+        <p>Postal/Zip Code: <label><input type="text" name="postal_zip_code"></label></p>
+        <p><input type="submit" name="submit" value="Create Shipment"></p>
+    {% endif %}
+    </form>
+</div>
+
+<div>
+    <h3>Current Available Inventory</h3>
+    <p>The following list below shows all the currently available items in the inventory. Items shown here can be
+        assigned to shipments on this page. This list will be updated as items are assigned to shipments, or as items
+        are added to the inventory. To add more items to the inventory, go to the "Inventory Management" page.</p>
+    {% for item in inventory %}
+        <p>{{item}}</p>
+    {% endfor %}
+</div>
+
+<div>
+    <h3>Add Item to Shipment</h3>
+    <p>Use the following form below to assign items from the inventory to shipments. After assigning items to shipments,
+        the appropriate adjustments will be made to update the inventory levels.</p>
+    <form action="#" method="POST">
+    {% if not si_flag and info %}
+        <p>Shipment ID#: <label><input type="text" name="sid_num" value="{{info['sid_num']}}"></label></p>
+        <p>Item ID#: <label><input type="text" name="iid_num" value="{{info['iid_num']}}"></label></p>
+        <p>Item Quantity: <label><input type="number" name="quantity" value="{{info['quantity']}}"></label></p>
+        <p><input type="submit" name="submit" value="Add Item to Shipment"></p>
+    {% else %}
+        <p>Shipment ID#: <label><input type="text" name="sid_num"></label></p>
+        <p>Item ID#: <label><input type="text" name="iid_num"></label></p>
+        <p>Item Quantity: <label><input type="number" name="quantity"></label></p>
+        <p><input type="submit" name="submit" value="Add Item to Shipment"></p>
+    {% endif %}
+    </form>
+</div>
+
+<div>
+    <h3>Current Shipments</h3>
+    <p>The following list below shows all the shipments in the shipments log, with all the items and quantities assigned
+        to each shipment also shown.</p>
+    {% for sid_num in shipments %}
+        <p>{{shipments[sid_num]["shipment_info"]}}</p>
+        {% for item_info in shipments[sid_num]["shipment_items"] %}
+            <p>{{item_info}}</p>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
