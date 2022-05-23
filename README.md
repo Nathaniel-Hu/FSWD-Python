@@ -15,7 +15,8 @@ application [here](https://replit.com/@NathanielHu4/FSWD-Python-Shopify-BDIC).
 script and start the web application.
 2. Click on the link displayed in the line
 `* Running on http://ip_address:port/ (Press CTRL+C to quit)` (e.g.
-`http://127.0.0.1:5000/`).
+`http://127.0.0.1:5000/`), as displayed in either the Console or Shell command
+line window.
 3. Once on the Home page, click on the "Backend Development" button to go to
 the Inventory Management page.
 4. Follow the instructions given on the Inventory Management page to add, edit
