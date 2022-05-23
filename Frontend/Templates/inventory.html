@@ -29,17 +29,17 @@
         "Shipment Management" page.</p>
     <form action="#" method="post">
     {% if a_flag and info %}
-        <p>Item ID#: <input type="text" name="id_num" value="{{info['id_num']}}" /></p>
-        <p>Item Name: <input type="text" name="name" value="{{info['name']}}" /></p>
-        <p>Item Quantity: <input type="number" min="0" name="quantity" value="{{info['quantity']}}" /></p>
-        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" value="{{info['buy_price']}}" /></p>
-        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" value="{{info['sell_price']}}" /></p>
+        <p>Item ID#: <label><input type="text" name="id_num" value="{{info['id_num']}}"></label></p>
+        <p>Item Name: <label><input type="text" name="name" value="{{info['name']}}"></label></p>
+        <p>Item Quantity: <label><input type="number" min="0" name="quantity" value="{{info['quantity']}}"></label></p>
+        <p>Item Buy Price: <label><input type="number" step="0.01" min="0" name="buy_price" value="{{info['buy_price']}}"></label></p>
+        <p>Item Sell Price: <label><input type="number" step="0.01" min="0" name="sell_price" value="{{info['sell_price']}}"></label></p>
     {% else %}
-        <p>Item ID#: <input type="text" name="id_num" /></p>
-        <p>Item Name: <input type="text" name="name" /></p>
-        <p>Item Quantity: <input type="number" min="0" name="quantity" /></p>
-        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" /></p>
-        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" /></p>
+        <p>Item ID#: <label><input type="text" name="id_num"></label></p>
+        <p>Item Name: <label><input type="text" name="name"></label></p>
+        <p>Item Quantity: <label><input type="number" min="0" name="quantity"></label></p>
+        <p>Item Buy Price: <label><input type="number" step="0.01" min="0" name="buy_price"></label></p>
+        <p>Item Sell Price: <label><input type="number" step="0.01" min="0" name="sell_price"></label></p>
     {% endif %}
         <p><input type="submit" name="submit" value="Add Item to Inventory"></p>
     </form>
@@ -60,19 +60,19 @@
     <p>Use the following form below to edit existing items in the inventory.</p>
     <form action="#" method="post">
     {% if e_flag and info %}
-        <p>Old Item ID#: <input type="text" name="old_id_num" value="{{info['old_id_num']}}" /></p>
-        <p>Item ID#: <input type="text" name="id_num" value="{{info['id_num']}}" /></p>
-        <p>Item Name: <input type="text" name="name" value="{{info['name']}}" /></p>
-        <p>Item Quantity: <input type="number" min="0" name="quantity" value="{{info['quantity']}}" /></p>
-        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" value="{{info['buy_price']}}" /></p>
-        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" value="{{info['sell_price']}}" /></p>
+        <p>Old Item ID#: <label><input type="text" name="old_id_num" value="{{info['old_id_num']}}"></label></p>
+        <p>Item ID#: <label><input type="text" name="id_num" value="{{info['id_num']}}"></label></p>
+        <p>Item Name: <label><input type="text" name="name" value="{{info['name']}}"></label></p>
+        <p>Item Quantity: <label><input type="number" min="0" name="quantity" value="{{info['quantity']}}"></label></p>
+        <p>Item Buy Price: <label><input type="number" step="0.01" min="0" name="buy_price" value="{{info['buy_price']}}"></label></p>
+        <p>Item Sell Price: <label><input type="number" step="0.01" min="0" name="sell_price" value="{{info['sell_price']}}"></label></p>
     {% else %}
-        <p>Old Item ID#: <input type="text" name="old_id_num" /></p>
-        <p>Item ID#: <input type="text" name="id_num" /></p>
-        <p>Item Name: <input type="text" name="name" /></p>
-        <p>Item Quantity: <input type="number" min="0" name="quantity" /></p>
-        <p>Item Buy Price: <input type="number" step="0.01" min="0" name="buy_price" /></p>
-        <p>Item Sell Price: <input type="number" step="0.01" min="0" name="sell_price" /></p>
+        <p>Old Item ID#: <label><input type="text" name="old_id_num"></label></p>
+        <p>Item ID#: <label><input type="text" name="id_num"></label></p>
+        <p>Item Name: <label><input type="text" name="name"></label></p>
+        <p>Item Quantity: <label><input type="number" min="0" name="quantity"></label></p>
+        <p>Item Buy Price: <label><input type="number" step="0.01" min="0" name="buy_price"></label></p>
+        <p>Item Sell Price: <label><input type="number" step="0.01" min="0" name="sell_price"></label></p>
     {% endif %}
         <p><input type="submit" name="submit" value="Edit Item in Inventory"></p>
     </form>
