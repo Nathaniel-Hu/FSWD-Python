@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash
 import os
 # note: the next line is only needed for local use, and can be commented
 # out otherwise; this url will need to be updated periodically to work
-os.environ["REPLIT_DB_URL"] = "https://kv.replit.com/v0/eyJhbGciOiJIUzUxMiIsImlzcyI6ImNvbm1hbiIsImtpZCI6InByb2Q6MSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb25tYW4iLCJleHAiOjE2NTMzMDE0OTgsImlhdCI6MTY1MzE4OTg5OCwiZGF0YWJhc2VfaWQiOiJlZmQyMjRjYi1iZWZmLTRkYjQtOGYxNy0yMmMyNjJmODgyZjkifQ.TaVTiNeH-QqfkHB-iUCw8ckmHUovCpK7nvQmLVfI25D7RZqDARt6ju12eS78cdzNlKE_JdGxS3ldLOsgsOIfGQ"
+# os.environ["REPLIT_DB_URL"] = "https://kv.replit.com/v0/eyJhbGciOiJIUzUxMiIsImlzcyI6ImNvbm1hbiIsImtpZCI6InByb2Q6MSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjb25tYW4iLCJleHAiOjE2NTMzMDE0OTgsImlhdCI6MTY1MzE4OTg5OCwiZGF0YWJhc2VfaWQiOiJlZmQyMjRjYi1iZWZmLTRkYjQtOGYxNy0yMmMyNjJmODgyZjkifQ.TaVTiNeH-QqfkHB-iUCw8ckmHUovCpK7nvQmLVfI25D7RZqDARt6ju12eS78cdzNlKE_JdGxS3ldLOsgsOIfGQ"
 from replit import db
 
 from Backend.ItemDB import get_add_item_info, create_item, add_item, \
@@ -98,6 +98,7 @@ def shipments():
                           "the existing shipment using the same shipment ID# "
                           "or use a different shipment ID#.")
                     return render_template("shipments.html",
+                                           inventory=string_items(),
                                            shipments=string_shipments(),
                                            si_flag=True, info=request.form)
                 case (False, False):
@@ -105,6 +106,7 @@ def shipments():
                           "check that the shipment ID# is not already being "
                           "used by another existing shipment.")
                     return render_template("shipments.html",
+                                           inventory=string_items(),
                                            shipments=string_shipments(),
                                            si_flag=True, info=request.form)
                 case (True, False):
@@ -118,6 +120,7 @@ def shipments():
                           "exist. Please check that you are using the correct "
                           "shipment ID#.")
                     return render_template("shipments.html",
+                                           inventory=string_items(),
                                            shipments=string_shipments(),
                                            si_flag=False, info=request.form)
                 case (True, False):
@@ -125,6 +128,7 @@ def shipments():
                           "exist in the inventory. Please check that you are "
                           "using the correct item ID#.")
                     return render_template("shipments.html",
+                                           inventory=string_items(),
                                            shipments=string_shipments(),
                                            si_flag=False, info=request.form)
                 case (True, True):
@@ -135,9 +139,11 @@ def shipments():
                           "unsuccessful! Please check your inventory item "
                           "levels and try again.")
                     return render_template("shipments.html",
+                                           inventory=string_items(),
                                            shipments=string_shipments(),
                                            si_flag=False, info=request.form)
-    return render_template("shipments.html", shipments=string_shipments())
+    return render_template("shipments.html", inventory=string_items(),
+                           shipments=string_shipments())
 
 
 if __name__ == "__main__":
