@@ -141,30 +141,43 @@ def get_delete_item_info(item_info):
 
 
 # attempt to delete item from inventory
-def delete_item(id_num) -> bool:
+def delete_item(id_num) -> (bool, bool):
     db_id_num = item_id_wrapper(id_num)
     if db_id_num in db:
         del db[db_id_num]
-        delete_item_from_shipments(id_num)
-        # return True if successful in deleting item from inventory and
-        # all assigned shipments
-        return True
+        if delete_item_from_shipments(id_num):
+            # return (True, True) if successful in deleting item from
+            # inventory and from all assigned shipments
+            return True, True
+        else:
+            # return (True, False) if successful in deleting item from
+            # inventory and item was not assigned to any shipments
+            return True, False
     else:
-        # return False if unsuccessful in deleting item from inventory
-        # and all assigned shipments (i.e. item not in inventory)
-        return False
+        # return (False, False) if unsuccessful in deleting item from
+        # inventory and all assigned shipments (i.e. item does not
+        # currently exist in the inventory)
+        return False, False
 
 
-# attempt to find and delete item from given shipment
-def delete_item_from_shipment(db_sid_num, iid_num):
+# attempt to find and delete item from given shipment; return True if
+# the item was deleted from at least one shipment, else False
+def delete_item_from_shipment(db_sid_num, iid_num) -> bool:
+    deleted_item = False
     if iid_num in db[db_sid_num]["items"]:
         del db[db_sid_num]["items"][iid_num]
+        deleted_item = True
+    return deleted_item
 
 
-# attempt to find and delete item from all assigned shipments
-def delete_item_from_shipments(iid_num):
+# attempt to find and delete item from all assigned shipments; return
+# True if the item was deleted from at least one shipment, else False
+def delete_item_from_shipments(iid_num) -> bool:
+    deleted_item = False
     for db_sid_num in db.prefix("S-"):
-        delete_item_from_shipment(db_sid_num, iid_num)
+        if delete_item_from_shipment(db_sid_num, iid_num):
+            deleted_item = True
+    return deleted_item
 
 
 # return string representation of item
